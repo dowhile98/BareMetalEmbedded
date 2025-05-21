@@ -1,4 +1,20 @@
-./Debug
-.o
-.elf
-.hex
+
+### Carpetas ###
+# Ignorar carpetas de compilación
+**/Debug/
+**/Release/
+**/.settings/
+
+# Metadata del workspace de STM32CubeIDE
+/.metadata/
+
+### Archivos binarios/compilación ###
+*.o
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.d
+*.su
+*.log
