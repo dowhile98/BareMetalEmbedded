@@ -16,71 +16,76 @@
  ******************************************************************************
  */
 
+// Inclusión de librerías estándar y del microcontrolador
 #include <stdint.h>
 #include "stm32f4xx.h"
 #include <stdio.h>
 
-
+// Definición de acceso directo al registro de control del RCC (no se usa en el resto del código)
 #define RCC_CR *((volatile uint32_t *)(0x40023800))
 
-
+// Estructura para mapear los registros principales del RCC
 typedef struct{
-	volatile uint32_t CR;		//0x00
-	volatile uint32_t PLLCFGR;	//0x04
-	volatile uint32_t CFGR;		//0x08
+    volatile uint32_t CR;       // Registro de control (0x00)
+    volatile uint32_t PLLCFGR;  // Registro de configuración del PLL (0x04)
+    volatile uint32_t CFGR;     // Registro de configuración general (0x08)
 }RCC_Def_t;
 
-#define rcc 				((RCC_Def_t *)(0x40023800))
-
+// Puntero a la estructura RCC (no se usa en el resto del código)
+#define rcc                 ((RCC_Def_t *)(0x40023800))
 
 int main(void)
 {
-	/*registro de control*/
-	//CR
-	RCC->CR |= RCC_CR_HSEON; //1<<16;(8MHZ)
-	//	RCC->CR |= RCC_CR_HSEBYP;//modo bypass (nucleo 64)
-	while(!(RCC->CR & RCC_CR_HSERDY));
+    // 1. Habilitar el oscilador externo HSE (8MHz)
+    RCC->CR |= RCC_CR_HSEON; // Activa el HSE
+    // Si se usa un oscilador externo en modo bypass, descomentar la siguiente línea:
+    // RCC->CR |= RCC_CR_HSEBYP;
+    // Esperar hasta que el HSE esté listo
+    while(!(RCC->CR & RCC_CR_HSERDY));
 
+    // 2. Configurar el PLL para generar 168MHz a partir de 8MHz
+    // Seleccionar HSE como fuente del PLL
+    RCC->PLLCFGR |= 1<<22;
 
-	/*registro de configuracion pll*/
-	//PLLCFGR
-	RCC->PLLCFGR |= 1<<22;
+    // Configurar los factores de multiplicación/división del PLL
+    // M = 8 (divide la entrada de 8MHz entre 8 = 1MHz)
+    RCC->PLLCFGR &=~(RCC_PLLCFGR_PLLM); // Limpia el campo M
+    RCC->PLLCFGR |= 8;
+    // N = 336 (multiplica 1MHz x 336 = 336MHz)
+    RCC->PLLCFGR &=~ (RCC_PLLCFGR_PLLN); // Limpia el campo N
+    RCC->PLLCFGR |= 336<<(RCC_PLLCFGR_PLLN_Pos);
+    // P = 2 (divide 336MHz entre 2 = 168MHz)
+    RCC->PLLCFGR &=~ (RCC_PLLCFGR_PLLP); // Limpia el campo P
 
-	//M = 8
-	RCC->PLLCFGR &=~(RCC_PLLCFGR_PLLM);
-	RCC->PLLCFGR |= 8;
-	//N = 336
-	RCC->PLLCFGR &=~ (RCC_PLLCFGR_PLLN);
-	RCC->PLLCFGR |= 336<<(RCC_PLLCFGR_PLLN_Pos);
-	//P = 2
-	RCC->PLLCFGR &=~ (RCC_PLLCFGR_PLLP);
+    /*
+     * SYSCLK = ((8MHz/8) * 336) / 2 = 168MHz
+     */
 
-	/**
-	 * SYSCLK = ((8MHZ/8) * 336)/ 2 = 168MHZ
-	 */
-	//PLL
-	RCC->CR |= RCC_CR_PLLON;
-	while(!(RCC->CR & RCC_CR_PLLRDY));
+    // 3. Encender el PLL y esperar a que esté listo
+    RCC->CR |= RCC_CR_PLLON;
+    while(!(RCC->CR & RCC_CR_PLLRDY));
 
-	//APB1 (42MHZ)
-	RCC->CFGR &=~ RCC_CFGR_PPRE1;
-	RCC->CFGR |= RCC_CFGR_PPRE1_DIV4;
-	//APB2(84MHZ)
-	RCC->CFGR &=~ RCC_CFGR_PPRE2;
-	RCC->CFGR |= RCC_CFGR_PPRE2_DIV2;
-	/*Configurar la latencia de la flash*/
-	/*configure flash latency*/
-	FLASH->ACR &=~ FLASH_ACR_LATENCY;
-	FLASH->ACR |= FLASH_ACR_LATENCY_5WS;
-	/*registro de configuracion y prescaler*/
-	//CFGR
-	RCC->CFGR |= RCC_CFGR_SW_PLL;
-	while(!(RCC->CFGR & RCC_CFGR_SWS));
+    // 4. Configurar los prescalers de los buses
+    // APB1 a 42MHz (168MHz / 4)
+    RCC->CFGR &=~ RCC_CFGR_PPRE1;
+    RCC->CFGR |= RCC_CFGR_PPRE1_DIV4;
+    // APB2 a 84MHz (168MHz / 2)
+    RCC->CFGR &=~ RCC_CFGR_PPRE2;
+    RCC->CFGR |= RCC_CFGR_PPRE2_DIV2;
 
+    // 5. Configurar la latencia de la memoria Flash para altas frecuencias
+    FLASH->ACR &=~ FLASH_ACR_LATENCY;
+    FLASH->ACR |= FLASH_ACR_LATENCY_5WS;
 
-	SystemCoreClockUpdate();
+    // 6. Seleccionar el PLL como fuente principal del sistema (SYSCLK)
+    RCC->CFGR |= RCC_CFGR_SW_PLL;
+    while(!(RCC->CFGR & RCC_CFGR_SWS)); // Esperar a que el cambio se complete
 
-	for(;;){
+    // 7. Actualizar la variable SystemCoreClock con la nueva frecuencia
+    SystemCoreClockUpdate();
 
-	}
+    // Bucle infinito (el micro ya está corriendo a 168MHz)
+    while(1){
+        // Aquí se puede agregar el código principal de la aplicación
+    }
 }

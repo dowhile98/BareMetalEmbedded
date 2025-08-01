@@ -9,9 +9,8 @@
  * Copyright (c) 2025 STMicroelectronics.
  * All rights reserved.
  *
- * This software is licensed under terms that can be found in the LICENSE file
- * in the root directory of this software component.
- * If no LICENSE file comes with this software, it is provided AS-IS.
+ * Este archivo es un ejemplo para mostrar la configuración de pines GPIO
+ * en los STM32F4 y el uso de bit-banding para manipulación eficiente de bits.
  *
  ******************************************************************************
  */
@@ -34,91 +33,96 @@
  */
 
 /**
- * PD12
- * bit_word_addr = 42000000U + ((0x020C00 + 0x14) * 0x20 + 0xC*0x4
+ * Ejemplo de cálculo de dirección bit-band para PD12:
+ * bit_word_addr = 42000000U + ((0x020C00 + 0x14) * 0x20 + 0xC*0x4)
  */
 
-//#define LED1 *((volatile uint32_t *)(42000000U + (0x020C00 + 0x14) * 0x20 + 0xC*0x4))
+// Macro para acceso a bit-banding: permite modificar un bit específico de un registro
 #define BITBAND_ACCESS(a, b)  *(volatile uint32_t*)(((uint32_t)&a & 0xF0000000) + 0x2000000 + (((uint32_t)&a & 0x000FFFFF) << 5) + (b << 2))
 
+// LED1 corresponde al bit 12 del registro ODR de GPIOD, usando bit-banding
 #define LED1 BITBAND_ACCESS(GPIOD->ODR, 12)
 
-
+// Estructura para acceso a cada bit del registro ODR de GPIOD usando bit-banding
 typedef struct
 {
-	volatile uint32_t BIT0;
-	volatile uint32_t BIT1;
-	volatile uint32_t BIT2;
-	volatile uint32_t BIT3;
-	volatile uint32_t BIT4;
-	volatile uint32_t BIT5;
-	volatile uint32_t BIT6;
-	volatile uint32_t BIT7;
-	volatile uint32_t BIT8;
-	volatile uint32_t BIT9;
-	volatile uint32_t BIT10;
-	volatile uint32_t BIT11;
-	volatile uint32_t BIT12;
-	volatile uint32_t BIT13;
-	volatile uint32_t BIT14;
-	volatile uint32_t BIT15;
+    volatile uint32_t BIT0;
+    volatile uint32_t BIT1;
+    volatile uint32_t BIT2;
+    volatile uint32_t BIT3;
+    volatile uint32_t BIT4;
+    volatile uint32_t BIT5;
+    volatile uint32_t BIT6;
+    volatile uint32_t BIT7;
+    volatile uint32_t BIT8;
+    volatile uint32_t BIT9;
+    volatile uint32_t BIT10;
+    volatile uint32_t BIT11;
+    volatile uint32_t BIT12;
+    volatile uint32_t BIT13;
+    volatile uint32_t BIT14;
+    volatile uint32_t BIT15;
 }GPIO_ODR_BB_t;
 
+// Puntero para acceso directo a los bits del ODR de GPIOD usando bit-banding
 #define GPIOD_BB_ODR ((GPIO_ODR_BB_t *)(PERIPH_BB_BASE + 0x418280))
-
 
 int main(void)
 {
-	/*1. ubicar el bus y habilitar el reloj*/
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOAEN;
-	/*2. configurar el registro moder*/
-	//PD12-15
-	GPIOD->MODER &=~ (GPIO_MODER_MODE12 | GPIO_MODER_MODE13 | GPIO_MODER_MODE14 |
-			GPIO_MODER_MODE15);
+    // 1. Habilitar el reloj para los puertos GPIOD y GPIOA
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOAEN;
 
-//	GPIOD->MODER &=~ (0x7F)<<GPIO_MODER_MODE12_Pos;//0b1111 1111
-	GPIOD->MODER |= GPIO_MODER_MODE12_0 | GPIO_MODER_MODE13_0 | GPIO_MODER_MODE14_0 |
-			GPIO_MODER_MODE15_0;
-	//PA0
-	GPIOA->MODER &=~ (GPIO_MODER_MODE0);
-//GPIOD->MODER |= 0x55<<GPIO_MODER_MODE12_Pos;//0b0101 0101->0x55
-	/*3. En caso de salida*/
-	GPIOD->OTYPER = 0;
-	/*4. Resistencias pull0 up/down*/
-	GPIOA->PUPDR &=~ (GPIO_PUPDR_PUPD0);
-//	GPIOA->PUPDR |= GPIO_PUPDR_PUPD0_0;
+    // 2. Configurar los pines PD12-PD15 como salida (MODER = 01)
+    GPIOD->MODER &=~ (GPIO_MODER_MODE12 | GPIO_MODER_MODE13 | GPIO_MODER_MODE14 |
+            GPIO_MODER_MODE15); // Limpia los bits
+    GPIOD->MODER |= GPIO_MODER_MODE12_0 | GPIO_MODER_MODE13_0 | GPIO_MODER_MODE14_0 |
+            GPIO_MODER_MODE15_0; // Configura como salida
 
-	GPIOD->ODR |= GPIO_ODR_OD12; //Alto el pd12
-	GPIOD->ODR &=~ GPIO_ODR_OD12; //Borra//and, not
+    // Configurar PA0 como entrada (MODER = 00)
+    GPIOA->MODER &=~ (GPIO_MODER_MODE0);
 
-	GPIOD->BSRR |= GPIO_BSRR_BS12; //or
-	GPIOD->BSRR |= GPIO_BSRR_BR12;
+    // 3. Configurar el tipo de salida de GPIOD como push-pull
+    GPIOD->OTYPER = 0;
 
-	*((volatile uint32_t *)0x20000300) |= 1<<2;
-	*((volatile uint32_t *)0x20000300) &=~ 1<<2;
+    // 4. Deshabilitar resistencias pull-up/pull-down en PA0
+    GPIOA->PUPDR &=~ (GPIO_PUPDR_PUPD0);
+    //GPIOA->PUPDR |= GPIO_PUPDR_PUPD0_0; // Si se requiere pull-up
 
-	*((volatile uint32_t *)0x22006008) = 1;
-	*((volatile uint32_t *)0x22006008) = 0;
-	//0x22000000U->SRAM
-	//0x42000000U->PERIFERICOS
-	LED1 = 1;
-	LED1 = 0;
+    // 5. Ejemplo de manipulación directa de los pines de salida
+    GPIOD->ODR |= GPIO_ODR_OD12; // Pone en alto PD12
+    GPIOD->ODR &=~ GPIO_ODR_OD12; // Pone en bajo PD12
 
-	GPIOD_BB_ODR->BIT12 = 1;
-	GPIOD_BB_ODR->BIT15 = 1;
-	GPIOD_BB_ODR->BIT15 = 0;
-    /* Loop forever */
-	for(;;){
+    // 6. Uso de BSRR para set/reset atómico de pines
+    GPIOD->BSRR |= GPIO_BSRR_BS12; // Setea PD12
+    GPIOD->BSRR |= GPIO_BSRR_BR12; // Resetea PD12
 
-	}
+    // 7. Ejemplo de manipulación de memoria SRAM y periféricos
+    *((volatile uint32_t *)0x20000300) |= 1<<2; // SRAM: pone en alto el bit 2
+    *((volatile uint32_t *)0x20000300) &=~ 1<<2; // SRAM: pone en bajo el bit 2
+
+    *((volatile uint32_t *)0x22006008) = 1; // Bit-banding SRAM
+    *((volatile uint32_t *)0x22006008) = 0;
+    // 0x22000000U->SRAM
+    // 0x42000000U->PERIFERICOS
+
+    // 8. Uso de bit-banding para manipular PD12
+    LED1 = 1; // Enciende PD12
+    LED1 = 0; // Apaga PD12
+
+    // 9. Acceso a bits individuales usando la estructura de bit-banding
+    GPIOD_BB_ODR->BIT12 = 1; // Enciende PD12
+    GPIOD_BB_ODR->BIT15 = 1; // Enciende PD15
+    GPIOD_BB_ODR->BIT15 = 0; // Apaga PD15
+
+    // Bucle infinito
+    for(;;){
+        // Aquí se puede agregar lógica para parpadear LEDs, leer botones, etc.
+    }
 }
 
-
-
+// Redirección de printf al canal ITM para debug
 int __io_putchar(int ch){
-
-	/*Cortex-M3/M4/M7/M33/23...*/
-	ITM_SendChar(ch);
-
-	return ch;
+    /*Cortex-M3/M4/M7/M33/23...*/
+    ITM_SendChar(ch);
+    return ch;
 }
