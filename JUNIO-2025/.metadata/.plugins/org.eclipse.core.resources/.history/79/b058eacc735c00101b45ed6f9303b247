@@ -1,0 +1,18 @@
+/*
+ * sensorTask.c
+ *
+ *  Created on: Jul 8, 2025
+ *      Author: jeffr
+ */
+
+
+void sensorTaskEntry(void const * argument)
+{
+  /* USER CODE BEGIN sensorTaskEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END sensorTaskEntry */
+}

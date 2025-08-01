@@ -1,0 +1,18 @@
+/*
+ * buttonTask.c
+ *
+ *  Created on: Jul 8, 2025
+ *      Author: jeffr
+ */
+
+
+void buttonTaskEntry(void const * argument)
+{
+  /* USER CODE BEGIN buttonTaskEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END buttonTaskEntry */
+}

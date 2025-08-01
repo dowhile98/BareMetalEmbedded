@@ -1,0 +1,32 @@
+/*
+ * sensorTask.c
+ *
+ *  Created on: Jul 8, 2025
+ *      Author: jeffr
+ */
+#include "cmsis_os.h"
+
+typedef strcut{
+	float V;
+	float C;
+	float temp;
+}sensor_data_t;
+
+void sensorTaskEntry(void const * argument)
+{
+  /* USER CODE BEGIN sensorTaskEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    //se espera una bandera (nuevos datos, o tiempo de lectura)
+	  if(osSemaphoreWait(adcFlagHandle, osWaitForever) == osOK){
+		  //data process
+	  }
+  }
+  /* USER CODE END sensorTaskEntry */
+}
+
+void adc_complet_callback(void){
+	//se entrega un semaforo aqui
+	osSemaphoreRelease(adcFlagHandle);
+}

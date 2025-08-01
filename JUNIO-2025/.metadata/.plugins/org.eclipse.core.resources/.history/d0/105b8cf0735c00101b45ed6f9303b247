@@ -1,0 +1,23 @@
+/*
+ * sensorTask.c
+ *
+ *  Created on: Jul 8, 2025
+ *      Author: jeffr
+ */
+
+
+void sensorTaskEntry(void const * argument)
+{
+  /* USER CODE BEGIN sensorTaskEntry */
+  /* Infinite loop */
+  for(;;)
+  {
+    //se espera una bandera (nuevos datos, o tiempo de lectura)
+
+  }
+  /* USER CODE END sensorTaskEntry */
+}
+
+void adc_complet_callback(void){
+	//se entrega un semaforo aqui
+}

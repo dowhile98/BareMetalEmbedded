@@ -2,7 +2,7 @@
 <Configuration status="info">
     <ThresholdFilter level="INFO"/>
     <Appenders>
-        <RollingFile name="DEBUGFILE" fileName="D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/BareMetalEmbedded/.metadata/.ide.log" filePattern="D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/BareMetalEmbedded/.metadata/.ide.log-%d{yyyy-MM-dd}.log">
+        <RollingFile name="DEBUGFILE" fileName="D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/Workspace/.metadata/.ide.log" filePattern="D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/Workspace/.metadata/.ide.log-%d{yyyy-MM-dd}.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%p] %c{1}:%L - %m%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />

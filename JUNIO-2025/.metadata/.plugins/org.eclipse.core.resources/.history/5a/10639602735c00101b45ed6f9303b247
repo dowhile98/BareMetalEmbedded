@@ -1,0 +1,25 @@
+/*
+ * mainTask.c
+ *
+ *  Created on: Jul 8, 2025
+ *      Author: jeffr
+ */
+#include "cmsis_os.h"
+
+uint8_t state  = 0;
+
+void mainTask(void const * argument)
+{
+	/* USER CODE BEGIN mainTask */
+	//local variables
+
+	//call init function
+
+	/* Infinite loop */
+	for(;;)
+	{
+		state = 1;
+		osDelay(1);
+	}
+	/* USER CODE END mainTask */
+}

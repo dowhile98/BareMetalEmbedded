@@ -1,0 +1,17 @@
+/*
+ * mainTask.c
+ *
+ *  Created on: Jul 8, 2025
+ *      Author: jeffr
+ */
+
+void mainTask(void const * argument)
+{
+  /* USER CODE BEGIN mainTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END mainTask */
+}

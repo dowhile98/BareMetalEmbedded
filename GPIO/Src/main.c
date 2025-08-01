@@ -15,87 +15,110 @@
  *
  ******************************************************************************
  */
-/*Inacludes -----------------------------------------------------------------*/
 
+#include <stdint.h>
+#include <stdio.h>
 #include "stm32f4xx.h"
 
-#define BIT_WORD_ADDRES_SRAM(addr, bit)  (SRAM1_BB_BASE + (addr - SRAM_BASE) * 32 + bit * 4)
+/**
+ * NUCLEO-64
+ * PA5->LED
+ * PC13->SWITCH
+ *
+ * STM32F4-Discovery
+ * PD12-15->leds
+ * PA0->Boton
+ *
+ * NUCLEO-32
+ * LED->PB3
+ */
 
-#define BIT_WORD_ADDRES_PP(addr, bit)  (PERIPH_BB_BASE + (addr - PERIPH_BASE) * 32 + bit * 4)
+/**
+ * PD12
+ * bit_word_addr = 42000000U + ((0x020C00 + 0x14) * 0x20 + 0xC*0x4
+ */
 
-#define GPIOA_PA5_ODR		*((volatile uint8_t *)BIT_WORD_ADDRES_PP(0x40020014, 5))
+//#define LED1 *((volatile uint32_t *)(42000000U + (0x020C00 + 0x14) * 0x20 + 0xC*0x4))
+#define BITBAND_ACCESS(a, b)  *(volatile uint32_t*)(((uint32_t)&a & 0xF0000000) + 0x2000000 + (((uint32_t)&a & 0x000FFFFF) << 5) + (b << 2))
 
-
-
-
-typedef struct{
-	volatile uint32_t bit0;
-	volatile uint32_t bit1;
-	volatile uint32_t bit2;
-	volatile uint32_t bit3;
-	volatile uint32_t bit4;
-	volatile uint32_t bit5;
-	volatile uint32_t bit6;
-	volatile uint32_t bit7;
-	volatile uint32_t bit8;
-	volatile uint32_t bit9;
-	volatile uint32_t bit10;
-	volatile uint32_t bit11;
-	volatile uint32_t bit12;
-	volatile uint32_t bit13;
-	volatile uint32_t bit14;
-	volatile uint32_t bit15;
-}BitBanding_t;
-
-#define GPIOA_ODR ((BitBanding_t *)(BIT_WORD_ADDRES_PP(0x40020014, 0)))
+#define LED1 BITBAND_ACCESS(GPIOD->ODR, 12)
 
 
-void GPIO_pinWrite(GPIO_TypeDef *GPIOx, uint8_t pin, uint8_t state){
+typedef struct
+{
+	volatile uint32_t BIT0;
+	volatile uint32_t BIT1;
+	volatile uint32_t BIT2;
+	volatile uint32_t BIT3;
+	volatile uint32_t BIT4;
+	volatile uint32_t BIT5;
+	volatile uint32_t BIT6;
+	volatile uint32_t BIT7;
+	volatile uint32_t BIT8;
+	volatile uint32_t BIT9;
+	volatile uint32_t BIT10;
+	volatile uint32_t BIT11;
+	volatile uint32_t BIT12;
+	volatile uint32_t BIT13;
+	volatile uint32_t BIT14;
+	volatile uint32_t BIT15;
+}GPIO_ODR_BB_t;
 
-	if(state != 0){
-		GPIOx->BSRR |= 	1<<pin;
-	}else{
-		GPIOx->BSRR |= 1<<(16 + pin);
-	}
-
-}
-
-#define PA5   A, 5
-#define PA10  A, 10
-
-#define PIN_SET_(a, b, c)		{GPIO ## a ->BSRR |= (c!= 0) ? 1<<b : 1<<(b + 16);}
-#define PIN_SET(a, b)			PIN_SET_(a, b)
+#define GPIOD_BB_ODR ((GPIO_ODR_BB_t *)(PERIPH_BB_BASE + 0x418280))
 
 
 int main(void)
 {
+	/*1. ubicar el bus y habilitar el reloj*/
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOAEN;
+	/*2. configurar el registro moder*/
+	//PD12-15
+	GPIOD->MODER &=~ (GPIO_MODER_MODE12 | GPIO_MODER_MODE13 | GPIO_MODER_MODE14 |
+			GPIO_MODER_MODE15);
 
-	*((volatile uint32_t *)(0x20000300)) |= 1<<2;
+//	GPIOD->MODER &=~ (0x7F)<<GPIO_MODER_MODE12_Pos;//0b1111 1111
+	GPIOD->MODER |= GPIO_MODER_MODE12_0 | GPIO_MODER_MODE13_0 | GPIO_MODER_MODE14_0 |
+			GPIO_MODER_MODE15_0;
+	//PA0
+	GPIOA->MODER &=~ (GPIO_MODER_MODE0);
+//GPIOD->MODER |= 0x55<<GPIO_MODER_MODE12_Pos;//0b0101 0101->0x55
+	/*3. En caso de salida*/
+	GPIOD->OTYPER = 0;
+	/*4. Resistencias pull0 up/down*/
+	GPIOA->PUPDR &=~ (GPIO_PUPDR_PUPD0);
+//	GPIOA->PUPDR |= GPIO_PUPDR_PUPD0_0;
 
-	*((volatile uint8_t *)(0x22006008)) = 0;
+	GPIOD->ODR |= GPIO_ODR_OD12; //Alto el pd12
+	GPIOD->ODR &=~ GPIO_ODR_OD12; //Borra//and, not
 
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-	//PA5
-	GPIOA->MODER &=~ GPIO_MODER_MODE5;
-	GPIOA->MODER |= GPIO_MODER_MODE5_0;
-	//PA10
-	GPIOA->MODER &=~ GPIO_MODER_MODE10;
-	GPIOA->MODER |= GPIO_MODER_MODE10_0;
-	/*
-	GPIOA_PA5_ODR = 1;
+	GPIOD->BSRR |= GPIO_BSRR_BS12; //or
+	GPIOD->BSRR |= GPIO_BSRR_BR12;
 
-	GPIOA_PA5_ODR = 0;*/
-	GPIOA_ODR->bit5 = 1;
-	GPIOA_ODR->bit10 = 1;
+	*((volatile uint32_t *)0x20000300) |= 1<<2;
+	*((volatile uint32_t *)0x20000300) &=~ 1<<2;
 
-	GPIOA_ODR->bit5 = 0;
+	*((volatile uint32_t *)0x22006008) = 1;
+	*((volatile uint32_t *)0x22006008) = 0;
+	//0x22000000U->SRAM
+	//0x42000000U->PERIFERICOS
+	LED1 = 1;
+	LED1 = 0;
 
-	GPIO_pinWrite(GPIOA, 5, 1);
-
-	PIN_SET(PA5, 1);
-	PIN_SET(PA10, 1);
-	PIN_SET(PA10, 0);
-
+	GPIOD_BB_ODR->BIT12 = 1;
+	GPIOD_BB_ODR->BIT15 = 1;
+	GPIOD_BB_ODR->BIT15 = 0;
     /* Loop forever */
-	for(;;);
+	for(;;){
+
+	}
+}
+
+
+
+int __io_putchar(int ch){
+
+	/*Cortex-M3/M4/M7/M33/23...*/
+	ITM_SendChar(ch);
+
+	return ch;
 }
