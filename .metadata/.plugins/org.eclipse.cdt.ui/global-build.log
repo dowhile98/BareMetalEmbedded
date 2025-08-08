@@ -1,35 +1,77 @@
-21:56:14 **** Incremental Build of configuration Debug for project GPIO ****
-make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/Workspace/GPIO/Drivers/CMSIS/Include" -I"D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/Workspace/GPIO/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "GPIO.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\TRABAJO\UMAKER\CURSOS\Bare-Metal Embedded\Workspace\GPIO\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="GPIO.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: GPIO.elf
+21:37:15 **** Incremental Build of configuration Debug for project SysTick_IT ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/BSP/delay" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -Og -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "SysTick_IT.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysTick_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SysTick_IT.elf
  
-arm-none-eabi-size  GPIO.elf 
-arm-none-eabi-objdump -h -S GPIO.elf  > "GPIO.list"
+arm-none-eabi-size  SysTick_IT.elf 
+arm-none-eabi-objdump -h -S SysTick_IT.elf  > "SysTick_IT.list"
    text	   data	    bss	    dec	    hex	filename
-    896	      0	   1568	   2464	    9a0	GPIO.elf
-Finished building: GPIO.list
+   5376	    120	   1904	   7400	   1ce8	SysTick_IT.elf
 Finished building: default.size.stdout
  
+Finished building: SysTick_IT.list
  
-21:56:19 **** Incremental Build of configuration Debug for project GPIO ****
-make -j8 all 
-arm-none-eabi-size  GPIO.elf 
+21:38:05 **** Incremental Build of configuration Debug for project SysTick_IT ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/BSP/delay" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -Og -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "SysTick_IT.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysTick_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SysTick_IT.elf
+ 
+arm-none-eabi-size  SysTick_IT.elf 
+arm-none-eabi-objdump -h -S SysTick_IT.elf  > "SysTick_IT.list"
    text	   data	    bss	    dec	    hex	filename
-    896	      0	   1568	   2464	    9a0	GPIO.elf
+   5376	    120	   1904	   7400	   1ce8	SysTick_IT.elf
 Finished building: default.size.stdout
  
-21:57:52 **** Incremental Build of configuration Debug for project GPIO ****
-make -j8 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/Workspace/GPIO/Drivers/CMSIS/Include" -I"D:/TRABAJO/UMAKER/CURSOS/Bare-Metal Embedded/Workspace/GPIO/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "GPIO.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\TRABAJO\UMAKER\CURSOS\Bare-Metal Embedded\Workspace\GPIO\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="GPIO.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: GPIO.elf
+Finished building: SysTick_IT.list
  
-arm-none-eabi-size  GPIO.elf 
-arm-none-eabi-objdump -h -S GPIO.elf  > "GPIO.list"
+21:39:32 **** Incremental Build of configuration Debug for project SysTick_IT ****
+make -j12 all 
+arm-none-eabi-size  SysTick_IT.elf 
    text	   data	    bss	    dec	    hex	filename
-    896	      0	   1568	   2464	    9a0	GPIO.elf
+   5376	    120	   1904	   7400	   1ce8	SysTick_IT.elf
 Finished building: default.size.stdout
  
-Finished building: GPIO.list
+21:43:08 **** Incremental Build of configuration Debug for project SysTick_IT ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/BSP/delay" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -Og -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "SysTick_IT.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysTick_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SysTick_IT.elf
+ 
+arm-none-eabi-size  SysTick_IT.elf 
+arm-none-eabi-objdump -h -S SysTick_IT.elf  > "SysTick_IT.list"
+   text	   data	    bss	    dec	    hex	filename
+   5380	    120	   1904	   7404	   1cec	SysTick_IT.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysTick_IT.list
+ 
+21:44:42 **** Incremental Build of configuration Debug for project SysTick_IT ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/BSP/delay" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -Og -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "SysTick_IT.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysTick_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SysTick_IT.elf
+ 
+arm-none-eabi-size  SysTick_IT.elf 
+arm-none-eabi-objdump -h -S SysTick_IT.elf  > "SysTick_IT.list"
+   text	   data	    bss	    dec	    hex	filename
+   5380	    120	   1904	   7404	   1cec	SysTick_IT.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysTick_IT.list
+ 
+21:46:54 **** Incremental Build of configuration Debug for project SysTick_IT ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/BSP/delay" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -Og -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "SysTick_IT.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/SysTick_IT/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysTick_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SysTick_IT.elf
+ 
+arm-none-eabi-size  SysTick_IT.elf 
+arm-none-eabi-objdump -h -S SysTick_IT.elf  > "SysTick_IT.list"
+   text	   data	    bss	    dec	    hex	filename
+   5376	    120	   1904	   7400	   1ce8	SysTick_IT.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysTick_IT.list
  
