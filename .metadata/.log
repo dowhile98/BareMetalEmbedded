@@ -1634,3 +1634,27 @@ java.lang.NullPointerException: Cannot read the array length because "containers
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.swv 1 1 2025-08-07 21:46:58.290
 !MESSAGE SWV configuration; base: 36000000; minDiv: 18; maxDiv: 65535; maxSWO: 2000000; limit: 2000000 => SWO: 2000000; CPU: 16000000; div: 8
+!SESSION 2025-08-12 20:02:06.461 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_ES
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data /home/tecna-smart-lab/GitHub/BareMetalEmbedded
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-08-12 20:02:11.763
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-08-12 20:02:11.766
+!MESSAGE Log4j2 initialized with config file /home/tecna-smart-lab/GitHub/BareMetalEmbedded/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-08-12 20:02:18.136
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-08-12 20:07:57.066
+!MESSAGE Indexed 'EXTI' (4 sources, 0 headers) in 0.299 sec: 99 declarations; 129 references; 14 unresolved inclusions; 0 syntax errors; 134 unresolved names (37%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-08-12 20:08:50.967
+!MESSAGE Indexed 'EXTI' (5 sources, 121 headers) in 9.15 sec: 22,240 declarations; 38,013 references; 1 unresolved inclusions; 92 syntax errors; 240 unresolved names (0.4%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-08-12 20:58:24.066
+!MESSAGE Indexed 'DC_spd_Variator v2.2.0_Gexim' (66 sources, 381 headers) in 18.9 sec: 35,495 declarations; 116,822 references; 2 unresolved inclusions; 284 syntax errors; 771 unresolved names (0.5%)

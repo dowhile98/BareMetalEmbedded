@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/tecna-smart-lab/Descargas/Eplimin /Variador/DC_spd_Variator v2.2.0_Gexim"/>
 			<item value="/home/tecna-smart-lab/GitHub/BareMetalEmbedded/GPIO"/>
 		</list>
 		<section name="SmartImportWizard.dialogBounds">
