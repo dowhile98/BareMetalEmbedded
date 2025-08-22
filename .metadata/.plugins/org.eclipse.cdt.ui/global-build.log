@@ -1,15 +1,21 @@
-21:25:45 **** Incremental Build of configuration Debug for project EXTI ****
+22:10:57 **** Incremental Build of configuration Debug for project UART3_IT ****
 make -j12 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/EXTI/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/EXTI/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DSTM32 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/EXTI/Drivers/CMSIS/Include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/EXTI/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/stm32f4xx_it.d" -MT"Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/stm32f4xx_it.o"
-arm-none-eabi-gcc -o "EXTI.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/EXTI/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="EXTI.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: EXTI.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F429xx -DUSE_HAL_DRIVER -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "UART3_IT.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/UART3_IT/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UART3_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: UART3_IT.elf
  
-arm-none-eabi-size  EXTI.elf 
-arm-none-eabi-objdump -h -S EXTI.elf  > "EXTI.list"
+arm-none-eabi-size  UART3_IT.elf 
+arm-none-eabi-objdump -h -S UART3_IT.elf  > "UART3_IT.list"
    text	   data	    bss	    dec	    hex	filename
-   3884	     92	   1900	   5876	   16f4	EXTI.elf
+  11120	     28	   1676	  12824	   3218	UART3_IT.elf
 Finished building: default.size.stdout
  
-Finished building: EXTI.list
+Finished building: UART3_IT.list
+ 
+22:14:38 **** Incremental Build of configuration Debug for project UART3_IT ****
+make -j12 all 
+arm-none-eabi-size  UART3_IT.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11120	     28	   1676	  12824	   3218	UART3_IT.elf
+Finished building: default.size.stdout
  
