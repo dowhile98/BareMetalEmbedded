@@ -6,51 +6,52 @@
  */
 #include "dl100_bsp_gps.h"
 #include "usart.h"
+#include "lwrb.h"
 
-typedef void (*gps_user_callback_t)(uint8_t *data, size_t len);
+#ifndef RX_BUFF_SIZE
+#define RX_BUFF_SIZE 1024*2
+#endif
 
-static uint8_t *byte = NULL;
-gps_user_callback_t callback = NULL;
+static uint8_t rx_rb_data[RX_BUFF_SIZE];
+static lwrb_t rx_rb;
+static uint8_t byte;
 
-
+static void BSP_GPS_UART_RX_Callback(UART_HandleTypeDef *huart);
 
 void BSP_GPS_Init(void)
 {
+	/*uart*/
 	MX_USART2_UART_Init();
+	/*rx buffer*/
+	lwrb_init(&rx_rb, rx_rb_data, RX_BUFF_SIZE);
+
+	HAL_UART_RegisterCallback(&huart2, HAL_UART_RX_COMPLETE_CB_ID, BSP_GPS_UART_RX_Callback);
+
+	//start receive data
+	HAL_UART_Receive_IT(&huart2, &byte, 1);
 }
 
-uint8_t BSP_GPS_Available(void)
+size_t BSP_GPS_Available(void)
 {
-	uint8_t ret = 0;
-	//CMSIS
-	if(USART2->SR & USART_SR_RXNE)
-	{
-		ret = 1;
-	}
-	//LL
-	if(LL_USART_IsActiveFlag_RXNE(USART2))
-	{
-		ret = 1;
-	}
-	//HAL
+	return lwrb_get_full(&rx_rb);
 
-	return ret;
+
 }
 
 uint8_t BSP_GPS_Read(uint8_t *buff, size_t len)
 {
-	size_t i = 0;
-	while(len > 0)
-	{
-		if(LL_USART_IsActiveFlag_RXNE(USART2))
-		{
-			buff[i] = LL_USART_ReceiveData8(USART2);
-			i += 1;
-			len -= 1;
-		}
-	}
 
-	return len;
+	if(lwrb_read(&rx_rb, buff, len) >= 0)
+
+	{
+		return 1;
+	}
+//	if(HAL_UART_Receive(&huart2, buff, len, HAL_MAX_DELAY) != HAL_OK)
+//	{
+//		return 0;
+//	}
+
+	return 0;
 }
 
 uint8_t BSP_GPS_Write(uint8_t *buff, size_t len)
@@ -61,27 +62,15 @@ uint8_t BSP_GPS_Write(uint8_t *buff, size_t len)
 
 uint8_t BSP_GPS_ReadIT(uint8_t *buff, size_t len, void *user_data)
 {
-	byte = buff;
-	callback = (gps_user_callback_t)user_data;
 
-	NVIC_EnableIRQ(USART2_IRQn);
-
-	LL_USART_EnableIT_RXNE(USART2);
-
-	LL_USART_Enable(USART2);
 
 	return 0;
 }
 
-void BSP_GPS_IRQHandler(void)
+static void BSP_GPS_UART_RX_Callback(UART_HandleTypeDef *huart)
 {
-	if(LL_USART_IsActiveFlag_RXNE(USART2))
-	{
-		*byte = LL_USART_ReceiveData8(USART2);
-
-		if(callback != NULL)
-		{
-			callback(byte, 1);
-		}
-	}
+	//put data to rb
+	lwrb_write(&rx_rb, &byte, 1);
+	//New data
+	HAL_UART_Receive_IT(huart, &byte, 1);
 }

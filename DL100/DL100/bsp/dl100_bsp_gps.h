@@ -20,7 +20,7 @@ uint8_t BSP_GPS_Write(uint8_t *buff, size_t len);
 
 uint8_t BSP_GPS_ReadIT(uint8_t *buff, size_t len, void *user_data);
 
-uint8_t BSP_GPS_Available(void);
+size_t BSP_GPS_Available(void);
 
 void BSP_GPS_IRQHandler(void);
 

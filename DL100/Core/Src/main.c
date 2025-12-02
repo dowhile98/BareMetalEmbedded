@@ -57,10 +57,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void GPS_DATA_INPUT_Callback(uint8_t *buff, size_t len)
-{
-	lwgps_process(&hgps, buff, 1);
-}
+uint8_t buffer[1024*2];
 /* USER CODE END 0 */
 
 /**
@@ -100,7 +97,6 @@ int main(void)
 
   lwgps_init(&hgps);
 
-  BSP_GPS_ReadIT(&byte, 1, (void *)GPS_DATA_INPUT_Callback);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -110,14 +106,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-//	  if(BSP_GPS_Available())
-//	  {
-//		  BSP_GPS_Read(&byte, 1);
-//
-//		  lwgps_process(&hgps, &byte, 1);
-//	  }
-//	  lwgps_process(&hgps, data, len)
+	  //process
+	  if(BSP_GPS_Available())
+	  {
+		  //get size
+		  size_t len = BSP_GPS_Available();
+		  //read data
+		  BSP_GPS_Read(buffer, len);
+		  //process data
+		  lwgps_process(&hgps, buffer, len);
+	  }
+//	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }

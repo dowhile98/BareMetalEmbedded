@@ -1,21 +1,35 @@
-21:58:47 **** Incremental Build of configuration Debug for project DL100 ****
+21:06:30 **** Incremental Build of configuration Debug for project DL100 ****
 make -j12 all 
-arm-none-eabi-gcc "../DL100/bsp/dl100_bsp_gps.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER -c -I../Core/Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/bsp" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/config" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwgps/src/include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwgps/src/include/lwgps" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"DL100/bsp/dl100_bsp_gps.d" -MT"DL100/bsp/dl100_bsp_gps.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "DL100/bsp/dl100_bsp_gps.o"
+arm-none-eabi-gcc "../DL100/bsp/dl100_bsp_gps.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -c -I../Core/Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwrb/src/include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwrb/src/include/lwrb" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/bsp" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/config" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwgps/src/include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwgps/src/include/lwgps" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"DL100/bsp/dl100_bsp_gps.d" -MT"DL100/bsp/dl100_bsp_gps.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "DL100/bsp/dl100_bsp_gps.o"
 arm-none-eabi-gcc -o "DL100.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DL100.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: DL100.elf
  
 arm-none-eabi-size  DL100.elf 
 arm-none-eabi-objdump -h -S DL100.elf  > "DL100.list"
    text	   data	    bss	    dec	    hex	filename
-  15484	     12	   1776	  17272	   4378	DL100.elf
+  17912	     12	   6008	  23932	   5d7c	DL100.elf
 Finished building: default.size.stdout
  
 Finished building: DL100.list
  
-21:58:51 **** Incremental Build of configuration Debug for project DL100 ****
+21:06:33 **** Incremental Build of configuration Debug for project DL100 ****
 make -j12 all 
 arm-none-eabi-size  DL100.elf 
    text	   data	    bss	    dec	    hex	filename
-  15484	     12	   1776	  17272	   4378	DL100.elf
+  17912	     12	   6008	  23932	   5d7c	DL100.elf
 Finished building: default.size.stdout
+ 
+21:07:30 **** Incremental Build of configuration Debug for project DL100 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F407xx -DUSE_HAL_DRIVER -c -I../Core/Inc -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwrb/src/include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwrb/src/include/lwrb" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/bsp" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/config" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwgps/src/include" -I"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/DL100/middlewares/lwgps/src/include/lwgps" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "DL100.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/BareMetalEmbedded/DL100/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DL100.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DL100.elf
+ 
+arm-none-eabi-size  DL100.elf 
+arm-none-eabi-objdump -h -S DL100.elf  > "DL100.list"
+   text	   data	    bss	    dec	    hex	filename
+  17832	     12	   6008	  23852	   5d2c	DL100.elf
+Finished building: default.size.stdout
+ 
+Finished building: DL100.list
  
