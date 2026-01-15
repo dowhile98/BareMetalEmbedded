@@ -3364,3 +3364,33 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-12-02 20:57:22.298
 !MESSAGE Indexed 'TIM' (23 sources, 86 headers) in 10.1 sec: 7,237 declarations; 39,758 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0043%)
+!SESSION 2025-12-11 20:20:20.630 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_ES
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2025-12-11 20:22:33.281
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-11 20:22:41.830
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-11 20:22:41.832
+!MESSAGE Log4j2 initialized with config file /home/tecna-smart-lab/GitHub/BareMetalEmbedded/.metadata/.log4j2.xml
+!SESSION 2025-12-17 20:41:33.270 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_ES
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2025-12-17 20:41:44.813
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-17 20:41:53.595
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-17 20:41:53.596
+!MESSAGE Log4j2 initialized with config file /home/tecna-smart-lab/GitHub/BareMetalEmbedded/.metadata/.log4j2.xml
