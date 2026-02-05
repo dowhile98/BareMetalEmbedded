@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "TCS",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/tecna-smart-lab/GitHub/TCS_Current_Interrupter/Firmware/TCS_Current_Interrupter/osal/**",
+                "/home/tecna-smart-lab/GitHub/TCS_Current_Interrupter/Firmware/TCS_Current_Interrupter/midlewares/**",
+                "/home/tecna-smart-lab/GitHub/TCS_Current_Interrupter/Firmware/TCS_Current_Interrupter/bsp/**"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "__error_t_defined",
+                "STM32U575xx",
+                "TX_INCLUDE_USER_DEFINE_FILE",
+                "TX_SINGLE_MODE_NON_SECURE=1",
+                "DEBUG"
+            ],
+            "compilerPath": "arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "gnu++11",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}

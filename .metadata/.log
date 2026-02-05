@@ -3394,3 +3394,18 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-17 20:41:53.596
 !MESSAGE Log4j2 initialized with config file /home/tecna-smart-lab/GitHub/BareMetalEmbedded/.metadata/.log4j2.xml
+!SESSION 2026-01-21 20:35:04.857 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=es_ES
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2026-01-21 20:35:21.310
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2026-01-21 20:35:32.585
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-01-21 20:35:32.586
+!MESSAGE Log4j2 initialized with config file /home/tecna-smart-lab/GitHub/BareMetalEmbedded/.metadata/.log4j2.xml
